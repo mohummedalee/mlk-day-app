@@ -1,1 +1,19 @@
-foo
+<!--
+1. randomly picks a class of results to show: gender or race
+2. repeatedly picks 2 random images from the images folder and asks users to say which one they consider more male or white
+    (also provide the option for unsure/balanced)
+ -->
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <script src="controller.js"></script>
+        <script type="text/javascript">
+            pick_random_img();
+        </script>
+    </head>
+
+    <body>
+        <a href="#" onclick="alert(pick_random_img())">Click Me</a>
+    </body>
+</html>
