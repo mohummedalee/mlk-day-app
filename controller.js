@@ -31,11 +31,11 @@ function add_prompt(){
     var div_to_add = "\
     <div class='well text-center prompt' id=q" + qno + ">\
         <div class='row col-lg-12'>\
-            <div class='offset-lg-1 col-lg-5 my-3'>\
+            <div class='offset-lg-1 col-lg-5 my-3 imgcontainer' id='img1container'>\
                 <img class='img-fluid active' id='img1' src='images/" + picks[0] + ".jpeg'>\
                 <div class='info img1_info'></div>\
             </div>\
-            <div class='col-lg-5 my-3'>\
+            <div class='col-lg-5 my-3 imgcontainer' id='img2container'>\
                 <img class='img-fluid active' id='img2' src='images/" + picks[1] + ".jpeg'>\
                 <div class='info img2_info'></div>\
             </div>\
@@ -64,8 +64,10 @@ function record_response(uid, ques, obj1, obj2, ans) {
     // mark the chosen image
     if (ans == obj1) {
         $(`#q${qno}`).find('#img1').addClass("border border-primary rounded");
+        $(`#q${qno}`).find('#img1container').css("background-color","#007bff").css("opacity", .5)
     } else {
         $(`#q${qno}`).find('#img2').addClass("border border-primary rounded");
+        $(`#q${qno}`).find('#img2container').css("background-color","#007bff").css("opacity", .5)
     }
     console.log(uid, ques, obj1, obj2, ans);
     // send details to backend
