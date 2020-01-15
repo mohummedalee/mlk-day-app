@@ -82,15 +82,26 @@ function show_results() {
         var img2 = cs_answers[i][1];
         var ans = cs_answers[i][2];
 
-        // show stats for first image
         console.log(`#q${i}`);
-        $(`#q${i}`).find('.img1_info').html(
-            `<p>Men reached: ${stats[img1]["male"]} (${(stats[img1]["frac_men"]*100).toFixed(2)}%).</p>`
-        )
-        // ...for second image
-        $(`#q${i}`).find('.img2_info').html(
-            `<p>Men reached: ${stats[img2]["male"]} (${(stats[img2]["frac_men"]*100).toFixed(2)}%).</p>`
-        )
+
+        // show stats for first image
+        if (ques_type == "gender") {
+            $(`#q${i}`).find('.img1_info').html(
+                `<p>Proportion of men reached: ${stats[img1]["male"]} (${(stats[img1]["frac_men"]*100).toFixed(2)}%).</p>`
+            );
+            // ...for second image
+            $(`#q${i}`).find('.img2_info').html(
+                `<p>Men reached: ${stats[img2]["male"]} (${(stats[img2]["frac_men"]*100).toFixed(2)}%).</p>`
+            );
+        } else if (ques_type == "race") {
+            $(`#q${i}`).find('.img1_info').html(
+                `<p>White users reached: ${stats[img1]["white"]} (${(stats[img1]["frac_white"]*100).toFixed(2)}%).</p>`
+            )
+            // ...for second image
+            $(`#q${i}`).find('.img2_info').html(
+                `<p>White users reached: ${stats[img2]["white"]} (${(stats[img2]["frac_white"]*100).toFixed(2)}%).</p>`
+            )
+        }
 
         // tell users if their answers were right -- too tired to write fancy logic
         if (ques_type == "gender") {
@@ -110,13 +121,33 @@ function show_results() {
                 }
             }
         } else {
-            // we were asking about race
+            if (stats[img1]["frac_white"] > stats[img2]["frac_white"]) {
+                if (ans == img1) {
+                    $(`#q${i}`).find('.img1_info').addClass("border border-success rounded");
+                }
+                else {
+                    $(`#q${i}`).find('.img2_info').addClass("border border-danger rounded");
+                }
+            } else {
+                if (ans == img2) {
+                    $(`#q${i}`).find('.img2_info').addClass("border border-success rounded");
+                }
+                else {
+                    $(`#q${i}`).find('.img1_info').addClass("border border-danger rounded");
+                }
+            }
         }
     }
 
     // turn off display: none
     $('.info').fadeIn('slow');
 
-    // show user summary of their answers
+    // TODO: hide current qno and replace with summary panel
+    var results_panel = '<div class="panel panel-default">\
+    <div class="panel-heading">Panel Heading</div>\
+    <div class="panel-body">Panel Content</div>\
+    </div>';
 
+    $(`#q${qno}`).hide();
+    $(`#q${qno}`).html(results_panel).fadeIn();
 }

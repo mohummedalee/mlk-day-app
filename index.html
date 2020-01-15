@@ -30,7 +30,7 @@
                     $('#question-itself').html("Which image do you think Facebook considers more relevant to men compared to women?");
                 }
                 else {
-                    $('#question-itself').html("Which image do you think Facebook considers more relevant to Caucasians compared to African Americans?");
+                    $('#question-itself').html("Which image do you think Facebook considers more relevant to White users compared to Black?");
                 }
             }
 
@@ -46,7 +46,7 @@
                 else if (e.code == "Digit2") {
                     record_response(user_id, ques_type, curr_img1, curr_img2, curr_img2);
                 }
-                else if (e.code == "Space") {
+                else if (e.code == "Space") {                    
                     show_results();
                 }
                 else if (e.code == "KeyR") {
@@ -58,7 +58,6 @@
 
     <body>
         <div class="container-fluid" id="prompt-holder">
-            <!-- <a href="#" onclick="add_prompt()">Click Me</a> -->
             <nav class="navbar fixed-top justify-content-center offset-lg-2 col-lg-8 my-3"
                 style="background-color: #e3f2fd;">
                 <span class="navbar-brand mb-0 h1" id="question-itself">
@@ -66,20 +65,7 @@
                 </span>
             </nav>
 
-            <!-- multiple prompts should keep showing up -->
-            <!-- <div class="well text-center prompt" id="q1">
-                <div class="row col-lg-12">
-                    <div class="offset-lg-1 col-lg-5 my-3">
-                        <img class="quiz img-fluid active" id="img1" src="images/firefighter.jpeg" alt="inn_logo">
-                        <div class="info img1_info"></div>
-                    </div>
-                    <div class="col-lg-5 my-3">
-                        <img class="quiz img-fluid active" id="img2" src="images/protester.jpeg" alt="ccs_logo">
-                        <div class="info img2_info"></div>
-                    </div>
-                </div>
-            </div> -->
-
+            <!-- multiple prompts should keep showing up; add_prompt() function will apend here -->
         </div>
 
     </body>
