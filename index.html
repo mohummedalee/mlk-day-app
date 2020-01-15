@@ -27,10 +27,10 @@
                 // change global variable
                 ques_type = pick;
                 if (pick == "gender") {
-                    $('#question-itself').html("Which image do you think Facebook considers more relevant to men compared to women?");
+                    $('#question-itself').html("Which image do you think Facebook finds more relevant to women than to men?");
                 }
                 else {
-                    $('#question-itself').html("Which image do you think Facebook considers more relevant to White users compared to Black?");
+                    $('#question-itself').html("Which image do you think Facebook finds more relevant to Black people compared to white people?");
                 }
             }
 
@@ -46,7 +46,8 @@
                 else if (e.code == "Digit2") {
                     record_response(user_id, ques_type, curr_img1, curr_img2, curr_img2);
                 }
-                else if (e.code == "Space") {                    
+                else if (e.code == "Space") {
+                    highlight_answers();
                     show_results();
                 }
                 else if (e.code == "KeyR") {

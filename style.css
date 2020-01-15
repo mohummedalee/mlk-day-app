@@ -24,5 +24,23 @@
 }
 
 .border-3 {
-    border-width:3px !important;
+    border-width:10px;
+}
+
+.imgcontainer {
+    position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 90px;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  font-size: 7em;
 }
