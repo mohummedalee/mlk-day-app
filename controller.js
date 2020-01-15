@@ -33,11 +33,11 @@ function add_prompt(){
         <div class='row col-lg-12'>\
             <div class='offset-lg-1 col-lg-5 my-3 imgcontainer' id='img1container'>\
                 <img class='img-fluid active' id='img1' src='images/" + picks[0] + ".jpeg'>\
-                <div class='info img1_info'></div>\
+                <div class='centered' id='img1desc'></div>\
             </div>\
             <div class='col-lg-5 my-3 imgcontainer' id='img2container'>\
                 <img class='img-fluid active' id='img2' src='images/" + picks[1] + ".jpeg'>\
-                <div class='info img2_info'></div>\
+                <div class='centered' id='img2desc'></div>\
             </div>\
         </div>\
     </div>";
@@ -63,11 +63,9 @@ function record_response(uid, ques, obj1, obj2, ans) {
     cs_answers[qno.toString()] = [obj1, obj2, ans];    // client side
     // mark the chosen image
     if (ans == obj1) {
-        $(`#q${qno}`).find('#img1').addClass("border border-primary rounded");
-        $(`#q${qno}`).find('#img1container').css("background-color","#007bff").css("opacity", .5)
+        $(`#q${qno}`).find('#img1container').css("background-color","#007bff88")
     } else {
-        $(`#q${qno}`).find('#img2').addClass("border border-primary rounded");
-        $(`#q${qno}`).find('#img2container').css("background-color","#007bff").css("opacity", .5)
+        $(`#q${qno}`).find('#img2container').css("background-color","#007bff88")
     }
     console.log(uid, ques, obj1, obj2, ans);
     // send details to backend
@@ -76,45 +74,59 @@ function record_response(uid, ques, obj1, obj2, ans) {
     add_prompt();   // add new question and scroll to it
 }
 
-function show_results() {
+
+function highlight_answers() {
     // gives feedback based on cs_answers and stats dictionaries
+    var key = "frac_men";
+    if (ques_type == "race") {
+        key = "frac_white";
+    }
+
+
     for (var i = 1; i < qno; i++) {
         // unpack client-side answers
         var img1 = cs_answers[i][0];
         var img2 = cs_answers[i][1];
         var ans = cs_answers[i][2];
 
-        // show stats for first image
-        console.log(`#q${i}`);
-        $(`#q${i}`).find('.img1_info').html(
-            `<p>Men reached: ${stats[img1]["male"]} (${(stats[img1]["frac_men"]*100).toFixed(2)}%).</p>`
-        )
-        // ...for second image
-        $(`#q${i}`).find('.img2_info').html(
-            `<p>Men reached: ${stats[img2]["male"]} (${(stats[img2]["frac_men"]*100).toFixed(2)}%).</p>`
-        )
-
-        // tell users if their answers were right -- too tired to write fancy logic
-        if (ques_type == "gender") {
-            if (stats[img1]["frac_men"] > stats[img2]["frac_men"]) {
-                if (ans == img1) {
-                    $(`#q${i}`).find('.img1_info').addClass("border border-success rounded");
-                }
-                else {
-                    $(`#q${i}`).find('.img2_info').addClass("border border-danger rounded");
-                }
-            } else {
-                if (ans == img2) {
-                    $(`#q${i}`).find('.img2_info').addClass("border border-success rounded");
-                }
-                else {
-                    $(`#q${i}`).find('.img1_info').addClass("border border-danger rounded");
-                }
-            }
-        } else {
-            // we were asking about race
+        var correct_ans = img1;
+        var correct_ans_str = "img1";
+        var incorrect_ans_str = "img2";
+        if (stats[img1][key] < stats[img2][key]) {
+            correct_ans = img2;
+            correct_ans_str = "img2";
+            incorrect_ans_str = "img1";
         }
+
+       
+        if (ans == correct_ans) {
+            $(`#q${i}`).find(`#${correct_ans_str}container`).css("background-color","#28a74588")
+        } else {
+            $(`#q${i}`).find(`#${incorrect_ans_str}container`).css("background-color","#dc354588")
+        }
+
+        if (key == "frac_men") {
+            $(`#q${i}`).find("#img1desc").text(
+                `${((1-stats[img1]["frac_men"])*100).toFixed(0)}% female`
+            );
+            $(`#q${i}`).find("#img2desc").text(
+                `${((1-stats[img2]["frac_men"])*100).toFixed(0)}% female`
+            );
+        } else {
+            $(`#q${i}`).find("#img1desc").text(
+                `${((1-stats[img1]["frac_white"])*100).toFixed(0)}% Black`
+            );
+            $(`#q${i}`).find("#img2desc").text(
+                `${((1-stats[img2]["frac_white"])*100).toFixed(0)}% Black`
+            );            
+        }
+       
     }
+
+
+}
+
+function show_results() {
 
     // turn off display: none
     $('.info').fadeIn('slow');
