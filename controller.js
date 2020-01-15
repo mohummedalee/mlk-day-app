@@ -89,13 +89,13 @@ function highlight_answers() {
         var img2 = cs_answers[i][1];
         var ans = cs_answers[i][2];
 
-        var correct_ans = img1;
-        var correct_ans_str = "img1";
-        var incorrect_ans_str = "img2";
+        var correct_ans = img2;
+        var correct_ans_str = "img2";
+        var incorrect_ans_str = "img1";
         if (stats[img1][key] < stats[img2][key]) {
-            correct_ans = img2;
-            correct_ans_str = "img2";
-            incorrect_ans_str = "img1";
+            correct_ans = img1;
+            correct_ans_str = "img1";
+            incorrect_ans_str = "img2";
         }
 
        
