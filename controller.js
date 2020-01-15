@@ -78,6 +78,7 @@ function record_response(uid, ques, obj1, obj2, ans) {
 function highlight_answers() {
     // gives feedback based on cs_answers and stats dictionaries
     var key = "frac_men";
+    var correct_ans_count = 0;
     if (ques_type == "race") {
         key = "frac_white";
     }
@@ -101,6 +102,7 @@ function highlight_answers() {
 
         if (ans == correct_ans) {
             $(`#q${i}`).find(`#${correct_ans_str}container`).css("background-color","#28a74588")
+            correct_ans_count += 1;
         } else {
             $(`#q${i}`).find(`#${incorrect_ans_str}container`).css("background-color","#dc354588")
         }
@@ -123,19 +125,21 @@ function highlight_answers() {
 
     }
 
-
+    return correct_ans_count;
 }
 
-function show_results() {
-
+function show_results(correct_count) {
     // turn off display: none
     $('.info').fadeIn('slow');
 
-    // TODO: hide current qno and replace with summary panel
-    var results_panel = '<div class="panel panel-default">\
-    <div class="panel-heading">Panel Heading</div>\
-    <div class="panel-body">Panel Content</div>\
-    </div>';
+    var results_panel =
+    `<div class="card text-white bg-info mb-5 text-center offset-lg-4 col-lg-4">\
+        <div class="card-header"><h5>Results</h5></div>\
+            <div class="card-body">\
+            <h3 class="card-title">You got ${correct_count}/${qno-1} correct.</h3>\
+            <p class="card-text">Scroll up to see how your predictions compare to Facebook's classification system used in advertising.</p>\
+        </div>\
+    </div>`;
 
     $(`#q${qno}`).hide();
     $(`#q${qno}`).html(results_panel).fadeIn();

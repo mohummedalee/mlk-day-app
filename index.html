@@ -47,8 +47,8 @@
                     record_response(user_id, ques_type, curr_img1, curr_img2, curr_img2);
                 }
                 else if (e.code == "Space") {
-                    highlight_answers();
-                    show_results();
+                    var correct = highlight_answers();
+                    show_results(correct);
                 }
                 else if (e.code == "KeyR") {
                     location.reload();
