@@ -1,0 +1,24 @@
+.imgbox{
+    height: 500px;
+    width: 500px;
+}
+
+.column{
+    width: 33.33%;
+}
+
+.quiz{
+    height: 500px;
+}
+
+.post-content {
+    background: none repeat scroll 0 0 #FFFFFF;
+    opacity: 0.5;
+    top:0;
+    left:0;
+    position: absolute;
+}
+
+.info {
+    display: none;
+}

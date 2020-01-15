@@ -7,13 +7,59 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <script src="controller.js"></script>
+        <script src="jquery-3.4.1.min.js"></script>
+        <script src="controller.js" defer></script>
+        <link rel="stylesheet" href="style.css">
+        <script src="experiment_stats.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script type="text/javascript">
-            pick_random_img();
+            // global state vars
+            var curr_img1 = "firefighter", curr_img2 = "protester";
+            var ques_type = "gender";
+            var user_id = 1;
+            var qno = 1;
+            var cs_answers = {};    // client-side saving for displaying in the end
+
+            document.addEventListener('keydown', logKey);
+            function logKey(e) {
+                // console.log(e.code);
+                if (e.code == "Digit1") {
+                    record_response(user_id, ques_type, curr_img1, curr_img2, curr_img1);
+                }
+                else if (e.code == "Digit2") {
+                    record_response(user_id, ques_type, curr_img1, curr_img2, curr_img2);
+                }
+                else if (e.code == "Space") {
+                    show_results();
+                }
+            }
         </script>
     </head>
 
     <body>
-        <a href="#" onclick="alert(pick_random_img())">Click Me</a>
+        <div class="container-fluid" id="prompt-holder">
+            <!-- <a href="#" onclick="add_prompt()">Click Me</a> -->
+            <!-- <div class="col-lg-12" id="question">TODO: put question here</div> -->
+
+            <!-- multiple prompts should keep showing up -->
+            <div class="well text-center prompt" id="q1">
+                <div class="row col-lg-12">
+                    <div class="offset-lg-1 col-lg-5 my-3">
+                        <img class="quiz img-fluid active" id="img1" src="images/firefighter.jpeg" alt="inn_logo">
+                        <div class="info img1_info">
+                            <!-- <h3>Robots!</h3>
+                            <p>Lorem ipsum dolor sit amet</p> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-5 my-3">
+                        <img class="quiz img-fluid active" id="img2" src="images/protester.jpeg" alt="ccs_logo">
+                        <div class="info img2_info"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </body>
 </html>

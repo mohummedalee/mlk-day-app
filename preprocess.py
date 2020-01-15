@@ -93,9 +93,10 @@ def main(root):
     # f.savefig('%s/mlk-race-pilot.pdf'%root, bbox_inches='tight')
 
     # save for the web app
-    # pprint(out)
-    with open('experiment_stats.json', 'w') as wh:
+    with open('experiment_stats.js', 'w') as wh:
         json.dump(out, wh, indent=2)
+
+    # NOTE: manually add "var stats = " before the js object
 
 
 if __name__ == "__main__":
