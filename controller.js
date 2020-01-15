@@ -90,14 +90,31 @@ function show_results() {
         // show stats for first image
         console.log(`#q${i}`);
         $(`#q${i}`).find('.img1_info').html(
-            `<p>Women reached: ${stats[img1]["female"]}.</p>`
+            `<p>Men reached: ${stats[img1]["male"]} (${(stats[img1]["frac_men"]*100).toFixed(2)}%).</p>`
         )
         // ...for second image
         $(`#q${i}`).find('.img2_info').html(
-            `<p>Women reached: ${stats[img2]["female"]}.</p>`
+            `<p>Men reached: ${stats[img2]["male"]} (${(stats[img2]["frac_men"]*100).toFixed(2)}%).</p>`
         )
+
+        // tell users if their answers were right -- too tired to write fancy logic
+        if (stats[img1]["frac_men"] > stats[img2]["frac_men"]) {
+            if (ans == img1) {
+                $(`#q${i}`).find('.img1_info').addClass("border border-success rounded");
+            }
+            else {
+                $(`#q${i}`).find('.img2_info').addClass("border border-danger rounded");
+            }
+        } else {
+            if (ans == img2) {
+                $(`#q${i}`).find('.img2_info').addClass("border border-success rounded");
+            }
+            else {
+                $(`#q${i}`).find('.img1_info').addClass("border border-danger rounded");
+            }
+        }
     }
 
     // turn off display: none
-    $('.info').show();
+    $('.info').fadeIn('slow');
 }
