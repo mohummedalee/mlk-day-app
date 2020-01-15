@@ -53,17 +53,6 @@ function modify_old(){
     $(".active").removeClass("active");
 }
 
-function question() {
-    var choices = ["race", "gender"];
-    var pick = choices[Math.floor(Math.random() * choices.length)];
-    if (pick == "race") {
-        return "Which image would you consider more relevant to women?"
-    }
-    else {
-        return "Which image would you consider more relevant to African Americans?"
-    }
-}
-
 function send_to_backend(uid, ques, obj1, obj2, ans) {
     // FIXME: fails CORS policy for now, this could be served from 0.0.0.0 too
     var url = `http://0.0.0.0:8003/api?obj1=${obj1}&obj2=${obj2}&question=${ques}&answer=${ans}`
@@ -72,6 +61,12 @@ function send_to_backend(uid, ques, obj1, obj2, ans) {
 
 function record_response(uid, ques, obj1, obj2, ans) {
     cs_answers[qno.toString()] = [obj1, obj2, ans];    // client side
+    // mark the chosen image
+    if (ans == obj1) {
+        $(`#q${qno}`).find('#img1').addClass("border border-primary rounded");
+    } else {
+        $(`#q${qno}`).find('#img2').addClass("border border-primary rounded");
+    }
     console.log(uid, ques, obj1, obj2, ans);
     // send details to backend
     send_to_backend(uid, ques, obj1, obj2, ans);
@@ -98,23 +93,30 @@ function show_results() {
         )
 
         // tell users if their answers were right -- too tired to write fancy logic
-        if (stats[img1]["frac_men"] > stats[img2]["frac_men"]) {
-            if (ans == img1) {
-                $(`#q${i}`).find('.img1_info').addClass("border border-success rounded");
-            }
-            else {
-                $(`#q${i}`).find('.img2_info').addClass("border border-danger rounded");
+        if (ques_type == "gender") {
+            if (stats[img1]["frac_men"] > stats[img2]["frac_men"]) {
+                if (ans == img1) {
+                    $(`#q${i}`).find('.img1_info').addClass("border border-success rounded");
+                }
+                else {
+                    $(`#q${i}`).find('.img2_info').addClass("border border-danger rounded");
+                }
+            } else {
+                if (ans == img2) {
+                    $(`#q${i}`).find('.img2_info').addClass("border border-success rounded");
+                }
+                else {
+                    $(`#q${i}`).find('.img1_info').addClass("border border-danger rounded");
+                }
             }
         } else {
-            if (ans == img2) {
-                $(`#q${i}`).find('.img2_info').addClass("border border-success rounded");
-            }
-            else {
-                $(`#q${i}`).find('.img1_info').addClass("border border-danger rounded");
-            }
+            // we were asking about race
         }
     }
 
     // turn off display: none
     $('.info').fadeIn('slow');
+
+    // show user summary of their answers
+
 }

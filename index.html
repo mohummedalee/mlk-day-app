@@ -18,12 +18,28 @@
             var curr_img1 = "firefighter", curr_img2 = "protester";
             var ques_type = "gender";
             var user_id = 1;
-            var qno = 1;
+            var qno = 0;
             var cs_answers = {};    // client-side saving for displaying in the end
 
+            function question() {
+                var choices = ["race", "gender"];
+                var pick = choices[Math.floor(Math.random() * choices.length)];
+                // change global variable
+                ques_type = pick;
+                if (pick == "gender") {
+                    $('#question-itself').html("Which image do you think Facebook considers more relevant to men compared to women?");
+                }
+                else {
+                    $('#question-itself').html("Which image do you think Facebook considers more relevant to Caucasians compared to African Americans?");
+                }
+            }
+
             document.addEventListener('keydown', logKey);
+            $(document).ready(function(){
+                add_prompt();
+                question();
+            });
             function logKey(e) {
-                // console.log(e.code);
                 if (e.code == "Digit1") {
                     record_response(user_id, ques_type, curr_img1, curr_img2, curr_img1);
                 }
@@ -33,6 +49,9 @@
                 else if (e.code == "Space") {
                     show_results();
                 }
+                else if (e.code == "KeyR") {
+                    location.reload();
+                }
             }
         </script>
     </head>
@@ -40,10 +59,15 @@
     <body>
         <div class="container-fluid" id="prompt-holder">
             <!-- <a href="#" onclick="add_prompt()">Click Me</a> -->
-            <!-- <div class="col-lg-12" id="question">TODO: put question here</div> -->
+            <nav class="navbar fixed-top justify-content-center offset-lg-2 col-lg-8 my-3"
+                style="background-color: #e3f2fd;">
+                <span class="navbar-brand mb-0 h1" id="question-itself">
+                    <script>question();</script>
+                </span>
+            </nav>
 
             <!-- multiple prompts should keep showing up -->
-            <div class="well text-center prompt" id="q1">
+            <!-- <div class="well text-center prompt" id="q1">
                 <div class="row col-lg-12">
                     <div class="offset-lg-1 col-lg-5 my-3">
                         <img class="quiz img-fluid active" id="img1" src="images/firefighter.jpeg" alt="inn_logo">
@@ -54,7 +78,7 @@
                         <div class="info img2_info"></div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
 
