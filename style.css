@@ -44,3 +44,28 @@
   color: black;
   font-size: 7em;
 }
+
+.header-cont {
+    width:100%;
+    position:fixed;
+    top:0px;
+    background-color: #eee;
+    padding:.5em;
+    font-size: 1.5em;
+    z-index: 100;
+    text-align: center;
+}
+
+.footer-cont {
+    width:100%;
+    position:fixed;
+    bottom:0px;
+    background-image: url('images/NU_MonoNU_CMYK_RB.svg');
+    background-position: right;
+    background-repeat: no-repeat;
+    height: 5.5em;
+}
+
+#prompt-holder {
+    margin-top: 3em;
+}

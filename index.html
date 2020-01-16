@@ -32,10 +32,10 @@
                 // change global variable
                 ques_type = pick;
                 if (pick == "gender") {
-                    $('#question-itself').html("Which image do you think Facebook finds more relevant to women than to men?");
+                    $('#question-itself').text("Which image do you think Facebook finds more relevant to women than to men?");
                 }
                 else {
-                    $('#question-itself').html("Which image do you think Facebook finds more relevant to Black people compared to white people?");
+                    $('#question-itself').text("Which image do you think Facebook finds more relevant to Black people compared to white people?");
                 }
             }
 
@@ -65,16 +65,24 @@
     </head>
 
     <body>
+        <div class="header-cont" id="question-itself">
+            <script>question();</script>
+
+        </div>
+
+
         <div class="container-fluid" id="prompt-holder">
-            <nav class="navbar fixed-top justify-content-center offset-lg-2 col-lg-9 my-3"
+            <!-- <nav class="navbar fixed-top justify-content-center offset-lg-2 col-lg-9 my-3"
                 style="background-color: #e3f2fd;">
                 <span class="navbar-brand mb-0 h1" id="question-itself">
-                    <script>question();</script>
+                    
                 </span>
-            </nav>
+            </nav> -->
 
             <!-- multiple prompts should keep showing up; add_prompt() function will apend here -->
         </div>
+
+        <div class="footer-cont"></div>
 
     </body>
 </html>
