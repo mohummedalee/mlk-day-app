@@ -55,7 +55,7 @@ function modify_old(){
 
 function send_to_backend(uid, ques, obj1, obj2, ans) {
     // FIXME: fails CORS policy for now, this could be served from 0.0.0.0 too
-    var url = `http://0.0.0.0:8003/api?obj1=${obj1}&obj2=${obj2}&question=${ques}&answer=${ans}`
+    var url = api_url + `/api?user=${user_id}&obj1=${obj1}&obj2=${obj2}&question=${ques}&answer=${ans}`
     $.get(url, null);
 }
 

@@ -4,13 +4,13 @@ import sqlite3
 import contextlib
 from urllib.parse import urlparse
 
-PORT = 8041
+PORT = 8002
 
 db = sqlite3.connect('db.db')
 
 class DBLoggingHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
-        
+
         path = urlparse(self.path).path
         print(path)
         if 'api' not in path:

@@ -2,6 +2,8 @@
 1. randomly picks a class of results to show: gender or race
 2. repeatedly picks 2 random images from the images folder and asks users to say which one they consider more male or white
     (also provide the option for unsure/balanced)
+
+    TODO: still missing: getting user id from server side and sending it for backend recording
  -->
 
 <!DOCTYPE HTML>
@@ -20,6 +22,9 @@
             var user_id = 1;
             var qno = 0;
             var cs_answers = {};    // client-side saving for displaying in the end
+            var user_id = null;
+            var api_port = 8002;
+            var api_url = "http://localhost:" + api_port
 
             function question() {
                 var choices = ["race", "gender"];
@@ -36,6 +41,8 @@
 
             document.addEventListener('keydown', logKey);
             $(document).ready(function(){
+                var url = api_url + `/api/get_user`
+                $.get(url, function(uid) { console.log('received uid', uid); user_id = uid; });
                 add_prompt();
                 question();
             });
@@ -59,7 +66,7 @@
 
     <body>
         <div class="container-fluid" id="prompt-holder">
-            <nav class="navbar fixed-top justify-content-center offset-lg-2 col-lg-8 my-3"
+            <nav class="navbar fixed-top justify-content-center offset-lg-2 col-lg-9 my-3"
                 style="background-color: #e3f2fd;">
                 <span class="navbar-brand mb-0 h1" id="question-itself">
                     <script>question();</script>
